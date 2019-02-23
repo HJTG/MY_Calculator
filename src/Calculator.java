@@ -21,13 +21,13 @@ public  class Calculator extends JFrame implements ActionListener{
 	//** 计算结果文本框 */
 	private JTextField resultText = new JTextField ("0");
 	
-	//** 标志用户按的是否整个表达式的第一个数字，或者是运算符后的第一个数字
+	//** 标志用户按的是否整个表达式的第一个数字，或者是运算符后的第一个数字 */
 	private boolean firstDight = true;
-	//** 计算的中间结果
+	//** 计算的中间结果 */
 	private double resultNum = 0.0;
-	//** 当前运算的运算符
+	//** 当前运算的运算符 */
 	private String operator = "=";
-	//** 操作是否合法
+	//** 操作是否合法 */
 	private boolean operateValidFlag = true;
 	
 	
@@ -38,7 +38,7 @@ public  class Calculator extends JFrame implements ActionListener{
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setTitle("计算器");
 		this.setLocation(500,300);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.pack();
 		
 	}
@@ -78,7 +78,7 @@ public  class Calculator extends JFrame implements ActionListener{
 		
 		//** 初始化M键，用红色标示，将M键放在一个画板内
 		JPanel calmsPanel = new JPanel();
-		calmsPanel.setLayout(new GridLayout(1,1,3,3));
+		calmsPanel.setLayout(new GridLayout(5,1,3,3));
 		for(int i = 0; i < M.length; i++)
 		{
 			m[i] = new JButton(M[i]);
@@ -93,10 +93,10 @@ public  class Calculator extends JFrame implements ActionListener{
 		JPanel panel1 = new JPanel();
 		//** 画板采用边界布局管理器，画板里组件之间的水平和垂直方向上的间隔都为3像素
 		panel1.setLayout(new BorderLayout(3,3));
-		panel1.add("North",calckeysPanel);
-		panel1.add("Center",commandsPanel);
+		panel1.add("North",commandsPanel);
+		panel1.add("Center",calckeysPanel);
 		
-		//** 建立一个画板放文本框
+		//** 建立一个画板放文本框commandsPanel
 		JPanel top = new JPanel();
 		top.setLayout(new BorderLayout());
 		top.add("Center",resultText);
@@ -108,7 +108,7 @@ public  class Calculator extends JFrame implements ActionListener{
 		getContentPane().add("West",calmsPanel);
 		
 		//** 为各按钮添加事件监听器 */
-		//** 都使用同一个时间监听器，即本对象。本类的声明中中implements ActionListener
+		//** 都使用同一个时间监听器，即本对象。本类的声明中中implements ActionListener */
 		for(int i = 0;i < KEYS.length; i++)
 		{
 			keys[i].addActionListener(this);
@@ -150,7 +150,7 @@ public  class Calculator extends JFrame implements ActionListener{
 	}
  }
 	
-
+	//** 处理运算键被按下的事件 */
 	private void handleOperator(String key) {
 		// TODO 自动生成的方法存根
 		if(operator.equals("/")){
@@ -190,6 +190,7 @@ public  class Calculator extends JFrame implements ActionListener{
 		}else if (operator.equals("=")) {
 			resultNum = getNumberFromText();
 		}
+		
 		if(operateValidFlag) {
 			//** 双精度浮点型数的运算
 			long t1;
@@ -208,6 +209,7 @@ public  class Calculator extends JFrame implements ActionListener{
 		operateValidFlag = true;
 	}
 	
+	//** 从结果文本框获取数字 */
 	private double getNumberFromText() {
 		// TODO 自动生成的方法存根
 		double result = 0;
@@ -217,13 +219,6 @@ public  class Calculator extends JFrame implements ActionListener{
 		}
 		return result;
 	}
-
-	public static void main(String[] args) {
-		Calculator	calculator1 = new Calculator();
-		calculator1.setVisible(true);
-		calculator1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-	
 
 	private void handleNumber(String key) {
 		// TODO 自动生成的方法存根
@@ -267,6 +262,12 @@ public  class Calculator extends JFrame implements ActionListener{
 				resultText.setText(text);
 			}
 		}	
+	}
+
+	public static void main(String[] args) {
+		Calculator	calculator1 = new Calculator();
+		calculator1.setVisible(true);
+		calculator1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }
